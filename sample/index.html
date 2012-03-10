@@ -57,28 +57,67 @@
 	
 	</script>
 
-	<H2>Sample 3. Qestuion message box</H2>
-	<p>To show Message box with qestion, you must call the function "$.showMessageBox" settings. In the settings you must specify the type of 'question'.</p>
+	<H2>Sample 3. Custom type</H2>
+	<p>To show alert Message box, you must call the function "$.showMessageBox" with settings. In settings set type to 'alert'</p>
 	<code>$.showMessageBox({
-				content:"Yes or close!",
-				title: 'My qestion',
-				OkButtonText : "Yes",
-				OkButtonDoneFunction: function() {
-					alert('Pressed yes!');
-				},
-				type:'question'
+				content:"Warning message!",
+				title: 'Warning',
+				type: 'warning'
 			});</code>
 	</br>
 	<button id='demo3'>Demo</button>
+	</br></br>
 
 	<script>
 		$('#demo3').click(function(){
 			$.showMessageBox({
-				content:"Yes or close!",
+				content:"Warning message!",
+				title: 'Warning',
+				type: 'warning'
+			});
+		});
+	
+	</script>
+
+	<code>$.showMessageBox({
+				content:"Stop message!",
+				title: 'Stop',
+				type: 'stop'
+			});</code>
+	</br>
+	<button id='demo3_1'>Demo</button>
+
+	<script>
+		$('#demo3_1').click(function(){
+			$.showMessageBox({
+				content:"Stop message!",
+				title: 'Stop',
+				type: 'stop'
+			});
+		});
+	
+	</script>
+
+	<H2>Sample 4. Question message box</H2>
+	<p>To show Message box with question, you must call the function "$.showMessageBox" with settings. In the settings you must specify the type of 'question'.</p>
+	<code>$.showMessageBox({
+				content:"OK or close!",
 				title: 'My qestion',
-				OkButtonText : "Yes",
 				OkButtonDoneFunction: function() {
-					alert('Pressed yes!');
+					alert('Pressed OK!');
+				},
+				type:'question'
+			});</code>
+	</br>
+	<button id='demo4'>Demo</button>
+
+	<script>
+		$('#demo4').click(function(){
+			$.showMessageBox({
+				content:"OK or close!",
+				title: 'My qestion',
+				OkButtonDoneFunction: function() {
+					alert('Pressed OK!');
 				},
 				type:'question'
 			});
@@ -86,5 +125,35 @@
 	
 	</script>
 
+	<H2>Sample 5. Extended question message box</H2>
+	<p>To show Message box with extended question, you must call the function "$.showMessageBox" with settings. In the settings you must specify the type of 'question' and set buttons text</p>
+	<code>$.showMessageBox({
+				content:"Yes or No, may be close!",
+				title: 'My extended qestion',
+				OkButtonDoneFunction: function() {
+					alert('Pressed Yes!');
+				},
+				type:'question',
+				OkButtonText: 'Yes',
+				NoButtonText: 'No'
+			});</code>
+	</br>
+	<button id='demo5'>Demo</button>
+
+	<script>
+		$('#demo5').click(function(){
+			$.showMessageBox({
+				content:"Yes or No, may be close!",
+				title: 'My extended qestion',
+				OkButtonDoneFunction: function() {
+					alert('Pressed Yes!');
+				},
+				type:'question',
+				OkButtonText: 'Yes',
+				NoButtonText: 'No'
+			});
+		});
+	
+	</script>
 </body>
 </html>

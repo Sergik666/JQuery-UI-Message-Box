@@ -19,7 +19,16 @@
 				: options.content;
 
 			self.options = $.extend( {}, $.showMessageBox.options, options );
-			console.log(self.options);
+
+			this.initButtonsText();
+		},
+		initButtonsText : function(){
+			var self = this;
+			var type = self.options.type;
+			if(type === 'question' && self.options.OkButtonText.length == 0 )
+			{
+				self.options.OkButtonText = "OK";
+			}
 		},
 		show: function() {
 			var self = this;
@@ -35,13 +44,16 @@
 				content : dialogContent,
 				okButtonText: self.options.OkButtonText,
 				OkButtonDoneFunction: self.options.OkButtonDoneFunction,
+				NoButtonText: self.options.NoButtonText,
+				NoButtonDoneFunction: self.options.NoButtonDoneFunction,
 				closeButtonText: self.options.CloseButtonText,
 				closeButtonDoneFunction: self.options.CloseButtonDoneFunction,
 			});
 			messageBox.show();
 		},
-		getImageUrl : function(type){
+		getImageUrl : function(){
 			var self = this;
+			var type = self.options.type;
 			var imagePath = self.options.imagePath;
 
 			if(type === 'question')
@@ -57,7 +69,7 @@
 		},
 		getDialogContent : function(){
 			var self = this;
-			var imageUrl = this.getImageUrl(self.options.type);
+			var imageUrl = this.getImageUrl();
 			var content = self.content;
 
 			var dialogView = "<div style='height:15px;'></div>";
@@ -83,6 +95,8 @@
 		title: 'Information',
 		OkButtonText: '',
 		OkButtonDoneFunction: function(){},
+		NoButtonText: '',
+		NoButtonDoneFunction: function(){},
 		CloseButtonText: 'Close',
 		CloseButtonDoneFunction: function(){},
 		type: 'Information',
@@ -117,12 +131,19 @@
 							id:"btn-accept",
 							text: self.options.okButtonText,
 							click: function() {
-								//console.log(self.options);
-								//console.log(self.options.OkButtonDoneFunction);
 								self.options.OkButtonDoneFunction();
 								$(this).dialog("close");
-							}},
-							{
+							}
+						},
+						{
+							id:"btn-no",
+							text: self.options.NoButtonText,
+							click: function() {
+								self.options.NoButtonDoneFunction();
+								$(this).dialog("close");
+							}
+						},
+						{
 							id:"btn-cancel",
 							text: self.options.closeButtonText,
 							click: function() {
