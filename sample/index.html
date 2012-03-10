@@ -13,11 +13,23 @@
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
 
 	
+<!--script src="https://raw.github.com/Sergik666/JQuery-UI-Message-Box/master/src/js/messageBox.js" type="text/javascript"></script-->
+
 	<script src="../src/js/messageBox.js"></script>
 	<script>
 		
 		//$.showMessageBox.options.title = 'My information';
-		$.showMessageBox("Very simple message box!");
+		//$.showMessageBox("Very simple message box!");
+
+		$.showMessageBox({
+			content:"Yes or close!",
+			title: 'My qestion',
+			OkButtonText : "Yes",
+			OkButtonDoneFunction: function() {
+				alert('Pressed yes!');
+			},
+			type:'question'
+		});
 	
 	</script>
 

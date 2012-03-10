@@ -1,5 +1,5 @@
 /*
- * JQuery UI Message Box v0.1
+ * JQuery UI Message Box v0.1.1
  * https://github.com/Sergik666/JQuery-UI-Message-Box
  *
  * Copyright 2012, Sergey Vasylchenko
@@ -7,16 +7,6 @@
  *
  * Date: March 10 11:03:03 2012 +0200
  */
-
-/*// Utility
-if ( typeof Object.create !== 'function' ) {
-	Object.create = function( obj ) {
-		function F() {};
-		F.prototype = obj;
-		return new F();
-	};
-}*/
-
 
 (function( $, window, document, undefined ) {
 
@@ -40,10 +30,15 @@ if ( typeof Object.create !== 'function' ) {
 
 			var messageBox = Object.create( MessageBoxDialog );
 			
-			messageBox.init( {title : title, content : dialogContent } );
+			messageBox.init({
+				title : title,
+				content : dialogContent,
+				okButtonText: self.options.OkButtonText,
+				OkButtonDoneFunction: self.options.OkButtonDoneFunction,
+				closeButtonText: self.options.CloseButtonText,
+				closeButtonDoneFunction: self.options.CloseButtonDoneFunction,
+			});
 			messageBox.show();
-
-			//messageBox2(self.options.title, dialogContent, '', self.options.CloseButton);	
 		},
 		getImageUrl : function(type){
 			var self = this;
@@ -86,13 +81,17 @@ if ( typeof Object.create !== 'function' ) {
 
 	$.showMessageBox.options = {
 		title: 'Information',
-		CloseButton: 'Close',
+		OkButtonText: '',
+		OkButtonDoneFunction: function(){},
+		CloseButtonText: 'Close',
+		CloseButtonDoneFunction: function(){},
 		type: 'Information',
 		imagePath: '../src/img/'
 	};
 
 	var MessageBoxDialog = {
 		init:function(options){
+			this.options = options;
 			this.dialogTemplate = this.createDialogTemplate(options.title, options.content);
 		},
 		createDialogTemplate:function(title, content){
@@ -105,7 +104,8 @@ if ( typeof Object.create !== 'function' ) {
 			return result;
 		},
 		show:function(){
-			var $window = $(this.dialogTemplate);
+			var self = this;
+			var $window = $(self.dialogTemplate);
 
 			$window.dialog({
 					height: 160,
@@ -115,16 +115,19 @@ if ( typeof Object.create !== 'function' ) {
 					buttons:
 						[{
 							id:"btn-accept",
-							text: "",//buttonOKText,
+							text: self.options.okButtonText,
 							click: function() {
-								doneFunction();
-									$(this).dialog("close");
+								//console.log(self.options);
+								//console.log(self.options.OkButtonDoneFunction);
+								self.options.OkButtonDoneFunction();
+								$(this).dialog("close");
 							}},
 							{
 							id:"btn-cancel",
-							text: "Close",//buttonCloseText,
+							text: self.options.closeButtonText,
 							click: function() {
-									$(this).dialog("close");
+								self.options.closeButtonDoneFunction();
+								$(this).dialog("close");
 							}
 						}],
 					create: function () {
