@@ -190,16 +190,17 @@
 			{
 				var $clonedButtonExtendedInfo = $buttonExtendedInfo.clone();
 				$clonedButtonExtendedInfo.insertBefore($buttonExtendedInfo.parent())
-					.click(function(){
+
+				$clonedButtonExtendedInfo.click(function(){
 						self.showOrHideAdditionalInformation();
 				});							
+
 
 				$buttonExtendedInfo.remove();
 			}
 			else
 				$buttonExtendedInfo.hide();
 		},
-
 		showOrHideAdditionalInformation:function(){
 			var self = this;
 			var $dialog = this.$window.closest('.ui-dialog');
@@ -209,6 +210,7 @@
 			if( $buttonpane.find('#extendInfo').length == 0)
 			{
 			 	$buttonpane.append('<div id="extendInfo"><br/><textarea style="min-width:400px;width:100%;height:150px;">'+ self.options.AdditionalInformation +'</textarea><div>');
+			 	$buttonpane.find('textarea').attr('readonly','readonly');
 			 	$buttonExtendedInfo.find('.ui-button-text').text("Hide additional info");
 			}
 			else
