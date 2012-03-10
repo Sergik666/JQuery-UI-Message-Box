@@ -26,7 +26,14 @@ if ( typeof Object.create !== 'function' ) {
 			//console.log(self.options);
 			var dialogContent = this.getDialogContent();
 
-			messageBox2(self.options.title, dialogContent, '', self.options.CloseButton);	
+			var title = self.options.title;
+
+			var messageBox = Object.create( MessageBoxDialog );
+			
+			messageBox.init( {title : title, content : dialogContent } );
+			messageBox.show();
+
+			//messageBox2(self.options.title, dialogContent, '', self.options.CloseButton);	
 		},
 		getImageUrl : function(type){
 			var self = this;
@@ -74,49 +81,54 @@ if ( typeof Object.create !== 'function' ) {
 		imagePath: '../src/img/'
 	};
 
+	var MessageBoxDialog = {
+		init:function(options){
+			this.dialogTemplate = this.createDialogTemplate(options.title, options.content);
+		},
+		createDialogTemplate:function(title, content){
+			var result = "<div id='dialog-modal' title='" + title + "'>";
+					result += "<div style='height:100%;width:100%;'>";
+						result += content;
+					result += "</div>";
+				result += "</div>";
 
-function messageBox2(title, dialogContent, buttonOKText, buttonCloseText, doneFunction) {
+			return result;
+		},
+		show:function(){
+			var $window = $(this.dialogTemplate);
 
-	var $win = dialogTemplate(title, dialogContent);
+			$window.dialog({
+					height: 160,
+					width: 320,
+					resizable: false,
+					modal: true,
+					buttons:
+						[{
+							id:"btn-accept",
+							text: "",//buttonOKText,
+							click: function() {
+								doneFunction();
+									$(this).dialog("close");
+							}},
+							{
+							id:"btn-cancel",
+							text: "Close",//buttonCloseText,
+							click: function() {
+									$(this).dialog("close");
+							}
+						}],
+					create: function () {
+						var $dialog = $(this).closest('.ui-dialog');
+						$dialog.css('font-size', '62.5%');
+						$dialog.find('.ui-button-text').each(function (index, item) {
+							var $item = $(item);
+							if (!$item.text())
+								$item.parent().hide();
+						});
+					}
+				});
 
-	$win.dialog({
-		height: 160,
-		width: 320,
-		resizable: false,
-		modal: true,
-		buttons:
-			[{
-				id:"btn-accept",
-				text: buttonOKText,
-				click: function() {
-					doneFunction();
-						$(this).dialog("close");
-				}},
-				{
-				id:"btn-cancel",
-				text: buttonCloseText,
-				click: function() {
-						$(this).dialog("close");
-				}
-			}],
-		create: function () {
-			var $dialog = $(this).closest('.ui-dialog');
-			$dialog.css('font-size', '62.5%');
-			$dialog.find('.ui-button-text').each(function (index, item) {
-				var $item = $(item);
-				if (!$item.text())
-					$item.parent().hide();
-			});
 		}
-	});
-}
-
-function dialogTemplate(title, fieldset) {
-	var $win = $("<div id='dialog-modal' title='" + title + "'><form style='height:100%;width:100%;'><fieldset><div></div></fieldset></form></div>");
-
-	$win.find("form fieldset:first").replaceWith(fieldset);
-
-	return $win;
-}
+	};
 
 })( jQuery, window, document );
