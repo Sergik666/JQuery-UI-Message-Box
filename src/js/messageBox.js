@@ -24,10 +24,9 @@ if ( typeof Object.create !== 'function' ) {
 		show: function() {
 			var self = this;
 			//console.log(self.options);
-			var imageUrl = this.getImageUrl(self.options.type);
+			var dialogContent = this.getDialogContent();
 
-
-			messageBox2(self.options.title, self.content, imageUrl, '', self.options.CloseButton);	
+			messageBox2(self.options.title, dialogContent, '', self.options.CloseButton);	
 		},
 		getImageUrl : function(type){
 			var self = this;
@@ -43,9 +42,23 @@ if ( typeof Object.create !== 'function' ) {
 				return imagePath + 'stop.png'
 
 			return imagePath + 'information.png'
+		},
+		getDialogContent : function(){
+			var self = this;
+			var imageUrl = this.getImageUrl(self.options.type);
+			var content = self.content;
+
+			var dialogView = "<div style='height:15px;'></div>";
+				dialogView += "<div style='float:left;padding-left:5px;'>";
+					dialogView += "<img src='" + imageUrl + "' />";
+				dialogView += "</div>";
+				dialogView += "<div style='float:left;' id='content'>";
+					dialogView += "<p style='padding-left:20px; padding-top:6px;'>" + content + "</p>";
+				dialogView += "</div>";
+
+			return dialogView;
 		}
 	};
-
 
 	$.showMessageBox = function( options ) {
 			var messageBox = Object.create( MessageBox );
@@ -62,16 +75,9 @@ if ( typeof Object.create !== 'function' ) {
 	};
 
 
-function messageBox2(title, message, imageUrl, buttonOKText, buttonCloseText, doneFunction) {
-	var dialogView = "<div style='height:15px;'></div>";
-		dialogView += "<div style='float:left;padding-left:5px;'>";
-			dialogView += "<img src='" + imageUrl + "' />";
-		dialogView += "</div>";
-		dialogView += "<div style='float:left;' id='message'>";
-			dialogView += "<p style='padding-left:20px; padding-top:6px;'>" + message + "</p>";
-		dialogView += "</div>";
+function messageBox2(title, dialogContent, buttonOKText, buttonCloseText, doneFunction) {
 
-	var $win = dialogTemplate(title, dialogView);
+	var $win = dialogTemplate(title, dialogContent);
 
 	$win.dialog({
 		height: 160,
