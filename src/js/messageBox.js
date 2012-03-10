@@ -166,27 +166,40 @@
 						}],
 					create: function () {
 						var $dialog = $(this).closest('.ui-dialog');
+						
 						$dialog.css('font-size', '62.5%');
-						$dialog.find('.ui-button-text').each(function (index, item) {
-							var $item = $(item);
-							if (!$item.text())
-								$item.parent().hide();
-						});
 
-						var $buttonExtendedInfo = $dialog.find('#btn-showExtendData');
-						var $clonedButtonExtendedInfo = $buttonExtendedInfo.clone();
-						$clonedButtonExtendedInfo.insertBefore($buttonExtendedInfo.parent()).click(function(){
-							self.showOrHideAdditionalInformation();
-						});
+						self.hideButtons($dialog);
 
-						if( self.options.AdditionalInformation.length == 0)
-							$clonedButtonExtendedInfo.hide();
-
-						$buttonExtendedInfo.remove();
+						self.changeVisibilityAdditionalButton($dialog);
 					}
 				});
 
 		},
+		hideButtons: function($dialog){
+			$dialog.find('.ui-button-text').each(function (index, item) {
+				var $item = $(item);
+				if (!$item.text())
+					$item.parent().hide();
+			});
+		},
+		changeVisibilityAdditionalButton: function($dialog){
+			var self = this;
+			var $buttonExtendedInfo = $dialog.find('#btn-showExtendData');
+			if( self.options.AdditionalInformation.length != 0)
+			{
+				var $clonedButtonExtendedInfo = $buttonExtendedInfo.clone();
+				$clonedButtonExtendedInfo.insertBefore($buttonExtendedInfo.parent())
+					.click(function(){
+						self.showOrHideAdditionalInformation();
+				});							
+
+				$buttonExtendedInfo.remove();
+			}
+			else
+				$buttonExtendedInfo.hide();
+		},
+
 		showOrHideAdditionalInformation:function(){
 			var self = this;
 			var $dialog = this.$window.closest('.ui-dialog');
