@@ -1,5 +1,5 @@
 /*
- * JQuery UI Message Box v0.2
+ * JQuery UI Message Box v0.3
  * https://github.com/Sergik666/JQuery-UI-Message-Box
  *
  * Copyright 2012, Sergey Vasylchenko
@@ -48,6 +48,9 @@
 				NoButtonDoneFunction: self.options.NoButtonDoneFunction,
 				closeButtonText: self.options.CloseButtonText,
 				closeButtonDoneFunction: self.options.CloseButtonDoneFunction,
+				AdditionalInformation: self.options.AdditionalInformation,
+				AdditionalInformationShowText : self.options.AdditionalInformationShowText,
+				AdditionalInformationHideText : self.options.AdditionalInformationHideText
 			});
 			messageBox.show();
 		},
@@ -100,7 +103,10 @@
 		CloseButtonText: 'Close',
 		CloseButtonDoneFunction: function(){},
 		type: 'Information',
-		imagePath: '../src/img/'
+		imagePath: '../src/img/',
+		AdditionalInformation: '',
+		AdditionalInformationShowText:'Show additional info',
+		AdditionalInformationHideText:'Hide additional info',
 	};
 
 	var MessageBoxDialog = {
@@ -110,7 +116,7 @@
 		},
 		createDialogTemplate:function(title, content){
 			var result = "<div id='dialog-modal' title='" + title + "'>";
-					result += "<div style='height:100%;width:100%;min-width:240px;'>";
+					result += "<div class='dialog-content' style='height:100%;width:100%;min-width:260px;'>";
 						result += content;
 					result += "</div>";
 				result += "</div>";
@@ -120,6 +126,7 @@
 		show:function(){
 			var self = this;
 			var $window = $(self.dialogTemplate);
+			self.$window = $window;
 
 			$window.dialog({
 					width: 'auto',
@@ -127,6 +134,13 @@
 					modal: true,
 					buttons:
 						[{
+							id:"btn-showExtendData",
+							text: self.options.AdditionalInformationShowText,
+							click: function() {
+								self.showOrHideAdditionalInformation();
+							}
+						},
+						{
 							id:"btn-accept",
 							text: self.options.okButtonText,
 							click: function() {
@@ -158,9 +172,39 @@
 							if (!$item.text())
 								$item.parent().hide();
 						});
+
+						var $buttonExtendedInfo = $dialog.find('#btn-showExtendData');
+						var $clonedButtonExtendedInfo = $buttonExtendedInfo.clone();
+						$clonedButtonExtendedInfo.insertBefore($buttonExtendedInfo.parent()).click(function(){
+							self.showOrHideAdditionalInformation();
+						});
+
+						if( self.options.AdditionalInformation.length == 0)
+							$clonedButtonExtendedInfo.hide();
+
+						$buttonExtendedInfo.remove();
 					}
 				});
 
+		},
+		showOrHideAdditionalInformation:function(){
+			var self = this;
+			var $dialog = this.$window.closest('.ui-dialog');
+			var $buttonpane = $dialog.find('.ui-dialog-buttonpane');
+			var $buttonExtendedInfo = $dialog.find('#btn-showExtendData');
+
+			if( $buttonpane.find('#extendInfo').length == 0)
+			{
+			 	$buttonpane.append('<div id="extendInfo"><br/><textarea style="min-width:400px;width:100%;height:150px;">'+ self.options.AdditionalInformation +'</textarea><div>');
+			 	$buttonExtendedInfo.find('.ui-button-text').text("Hide additional info");
+			}
+			else
+			{
+			 	$buttonpane.find('#extendInfo').remove();
+			 	$buttonExtendedInfo.find('.ui-button-text').text("Show additional info");
+			}
+
+			this.$window.dialog( "option", "position", "center" );
 		}
 	};
 

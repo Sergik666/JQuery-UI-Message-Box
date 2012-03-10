@@ -155,5 +155,30 @@
 		});
 	
 	</script>
+
+
+	<H2>Sample 6. Addtional information</H2>
+
+	<code>$.showMessageBox({
+				title: 'Exception',
+				type:'alert',
+				content:"Not correct value!",
+				AdditionalInformation:"Value 'xxxx' is not correct! \nPage: 'zzz.aspx', line: 10",
+			});</code>
+	</br>
+	<button id='demo6'>Demo</button>
+
+	<script>
+		$('#demo6').click(function(){
+			$.showMessageBox({
+				title: 'Exception',
+				type:'alert',
+				content:"Not correct value!",
+				AdditionalInformation:"Value 'xxxx' is not correct! \nPage: 'zzz.aspx', line: 10",
+			});
+		});
+	
+	</script>
+
 </body>
 </html>
