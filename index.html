@@ -1,88 +1,189 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset='utf-8'>
+  <!--meta charset="utf-8"-->
+  <title>JQuery UI Message box Samples</title>
 
-  <title>Sergik666/JQuery-UI-Message-Box @ GitHub</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
+  
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
+
+  <script src="https://raw.github.com/Sergik666/JQuery-UI-Message-Box/master/src/js/messageBox.js" type="text/javascript"></script>
+  <!--script src="../src/js/messageBox.js"></script-->
 
   <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #96ec9b;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #000000;
+    code{
+      display: block;
+      padding: 5px;
+      border: solid 1px #aaaaaa;
     }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: #691364; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #691364; }
-    h3 { text-align: center; color: #691364; }
-    a { color: #691364; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
+
   </style>
+  <script>
+    $.showMessageBox.options.imagePath = 'img/';
+  </script>
+
 </head>
-
 <body>
-  <a href="https://github.com/Sergik666/JQuery-UI-Message-Box"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  <H1>JQuery UI Message box Samples</H1>
 
-  <div id="container">
+  <a href="https://github.com/Sergik666/JQuery-UI-Message-Box/zipball/master">Download zip</a>
 
-    <div class="download">
-      <a href="https://github.com/Sergik666/JQuery-UI-Message-Box/zipball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/zip.png"></a>
-      <a href="https://github.com/Sergik666/JQuery-UI-Message-Box/tarball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/tar.png"></a>
-    </div>
+  <H2>Sample 1. Easy usage</H2>
+  <p>To show Message box - to call the function "$.showMessageBox" with the text that you want to show.</p>
+  <code>$.showMessageBox("Very simple message box!");</code>
+  </br>
+  <button id='demo1'>Demo</button>
 
-    <h1><a href="https://github.com/Sergik666/JQuery-UI-Message-Box">JQuery-UI-Message-Box</a>
-      <span class="small">by <a href="https://github.com/Sergik666">Sergik666</a></span></h1>
+  <script>
+    $('#demo1').click(function(){
+      $.showMessageBox("Very simple message box!");
+    });   
+  
+  </script>
 
-    <div class="description">
-      Message Box usege JQuery UI Dialog
-    </div>
+  <H2>Sample 2. Custom title and content</H2>
+  <p>To show Message box with additional parameters, you must call the function "$.showMessageBox" settings.</p>
+  <code>$.showMessageBox({
+        content:"Very simple usage Message box!",
+        title: 'My information',
+      });</code>
+  </br>
+  <button id='demo2'>Demo</button>
 
-    
+  <script>
+    $('#demo2').click(function(){
+      $.showMessageBox({
+        content:"Very simple usage Message box!",
+        title: 'My information',
+      });
+    });
+  
+  </script>
 
-    
+  <H2>Sample 3. Custom type</H2>
+  <p>To show alert Message box, you must call the function "$.showMessageBox" with settings. In settings set type to 'alert'</p>
+  <code>$.showMessageBox({
+        content:"Warning message!",
+        title: 'Warning',
+        type: 'warning'
+      });</code>
+  </br>
+  <button id='demo3'>Demo</button>
+  </br></br>
 
-    
+  <script>
+    $('#demo3').click(function(){
+      $.showMessageBox({
+        content:"Warning message!",
+        title: 'Warning',
+        type: 'warning'
+      });
+    });
+  
+  </script>
 
-    
+  <code>$.showMessageBox({
+        content:"Stop message!",
+        title: 'Stop',
+        type: 'stop'
+      });</code>
+  </br>
+  <button id='demo3_1'>Demo</button>
 
-    
-      <h2>Authors</h2>
-      <p>Sergey Vasylchenko (Sergik666@gmail.com)<br/>      </p>
-    
+  <script>
+    $('#demo3_1').click(function(){
+      $.showMessageBox({
+        content:"Stop message!",
+        title: 'Stop',
+        type: 'stop'
+      });
+    });
+  
+  </script>
 
-    
-      <h2>Contact</h2>
-      <p>Sergey Vasylchenko (Sergik666@gmail.com)<br/>      </p>
-    
+  <H2>Sample 4. Question message box</H2>
+  <p>To show Message box with question, you must call the function "$.showMessageBox" with settings. In the settings you must specify the type of 'question'.</p>
+  <code>$.showMessageBox({
+        content:"OK or close!",
+        title: 'My qestion',
+        OkButtonDoneFunction: function() {
+          alert('Pressed OK!');
+        },
+        type:'question'
+      });</code>
+  </br>
+  <button id='demo4'>Demo</button>
 
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="https://github.com/Sergik666/JQuery-UI-Message-Box/zipball/master">zip</a> or
-      <a href="https://github.com/Sergik666/JQuery-UI-Message-Box/tarball/master">tar formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/Sergik666/JQuery-UI-Message-Box</pre>
-    </p>
+  <script>
+    $('#demo4').click(function(){
+      $.showMessageBox({
+        content:"OK or close!",
+        title: 'My qestion',
+        OkButtonDoneFunction: function() {
+          alert('Pressed OK!');
+        },
+        type:'question'
+      });
+    });
+  
+  </script>
 
-    <div class="footer">
-      get the source code on GitHub : <a href="https://github.com/Sergik666/JQuery-UI-Message-Box">Sergik666/JQuery-UI-Message-Box</a>
-    </div>
+  <H2>Sample 5. Extended question message box</H2>
+  <p>To show Message box with extended question, you must call the function "$.showMessageBox" with settings. In the settings you must specify the type of 'question' and set buttons text</p>
+  <code>$.showMessageBox({
+        content:"Yes or No, may be close!",
+        title: 'My extended qestion',
+        OkButtonDoneFunction: function() {
+          alert('Pressed Yes!');
+        },
+        type:'question',
+        OkButtonText: 'Yes',
+        NoButtonText: 'No'
+      });</code>
+  </br>
+  <button id='demo5'>Demo</button>
 
-  </div>
+  <script>
+    $('#demo5').click(function(){
+      $.showMessageBox({
+        content:"Yes or No, may be close!",
+        title: 'My extended qestion',
+        OkButtonDoneFunction: function() {
+          alert('Pressed Yes!');
+        },
+        type:'question',
+        OkButtonText: 'Yes',
+        NoButtonText: 'No'
+      });
+    });
+  
+  </script>
+
+
+  <H2>Sample 6. Addtional information</H2>
+
+  <code>$.showMessageBox({
+        title: 'Exception',
+        type:'alert',
+        content:"Not correct value!",
+        AdditionalInformation:"Value 'xxxx' is not correct! \nPage: 'zzz.aspx', line: 10",
+      });</code>
+  </br>
+  <button id='demo6'>Demo</button>
+
+  <script>
+    $('#demo6').click(function(){
+      $.showMessageBox({
+        title: 'Exception',
+        type:'alert',
+        content:"Not correct value!",
+        AdditionalInformation:"Value 'xxxx' is not correct! \nPage: 'zzz.aspx', line: 10",
+      });
+    });
+  
+  </script>
 
 </body>
 </html>
