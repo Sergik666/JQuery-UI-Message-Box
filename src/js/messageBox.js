@@ -1,3 +1,13 @@
+/*
+ * JQuery UI Message Box v0.1
+ * https://github.com/Sergik666/JQuery-UI-Message-Box
+ *
+ * Copyright 2012, Sergey Vasylchenko
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ *
+ * Date: March 10 11:03:03 2012 +0200
+ */
+
 /*// Utility
 if ( typeof Object.create !== 'function' ) {
 	Object.create = function( obj ) {
