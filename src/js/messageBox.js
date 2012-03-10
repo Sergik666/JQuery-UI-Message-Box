@@ -1,5 +1,5 @@
 /*
- * JQuery UI Message Box v0.1.1
+ * JQuery UI Message Box v0.2
  * https://github.com/Sergik666/JQuery-UI-Message-Box
  *
  * Copyright 2012, Sergey Vasylchenko
@@ -59,7 +59,7 @@
 			if(type === 'question')
 				return imagePath + 'question.png';
 
-			if(type === 'warning')
+			if(type === 'warning' || type === 'alert')
 				return imagePath + 'warning.png'
 
 			if(type === 'stop')
@@ -110,7 +110,7 @@
 		},
 		createDialogTemplate:function(title, content){
 			var result = "<div id='dialog-modal' title='" + title + "'>";
-					result += "<div style='height:100%;width:100%;'>";
+					result += "<div style='height:100%;width:100%;min-width:240px;'>";
 						result += content;
 					result += "</div>";
 				result += "</div>";
@@ -122,8 +122,7 @@
 			var $window = $(self.dialogTemplate);
 
 			$window.dialog({
-					height: 160,
-					width: 320,
+					width: 'auto',
 					resizable: false,
 					modal: true,
 					buttons:
