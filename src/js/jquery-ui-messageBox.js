@@ -129,6 +129,8 @@
 			var $window = $(self.dialogTemplate);
 			self.$window = $window;
 
+			var closeFromButton = false;
+
 			$window.dialog({
 				width: 'auto',
 				resizable: false,
@@ -146,6 +148,7 @@
 							text: self.options.okButtonText,
 							click: function () {
 								self.options.OkButtonDoneFunction();
+								closeFromButton = true;
 								$(this).dialog("close");
 							}
 						},
@@ -154,6 +157,7 @@
 							text: self.options.NoButtonText,
 							click: function () {
 								self.options.NoButtonDoneFunction();
+								closeFromButton = true;
 								$(this).dialog("close");
 							}
 						},
@@ -162,6 +166,7 @@
 							text: self.options.closeButtonText,
 							click: function () {
 								self.options.closeButtonDoneFunction();
+								closeFromButton = true;
 								$(this).dialog("close");
 							}
 						}],
@@ -173,6 +178,11 @@
 					self.hideButtons($dialog);
 
 					self.changeVisibilityAdditionalButton($dialog);
+				},
+				close: function () {
+					if (!closeFromButton) {
+						self.options.closeButtonDoneFunction();
+					}
 				}
 			});
 
