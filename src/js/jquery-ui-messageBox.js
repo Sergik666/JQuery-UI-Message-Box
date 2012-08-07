@@ -1,5 +1,5 @@
 /*
- * JQuery UI Message Box v0.4
+ * JQuery UI Message Box v0.4.1
  * https://github.com/Sergik666/JQuery-UI-Message-Box
  *
  * Copyright 2012, Sergey Vasylchenko
